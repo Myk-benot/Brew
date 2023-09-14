@@ -1,11 +1,6 @@
 import React from "react";
 
-export default function Modal({ onClose, brewery }) {
-  const onAdd = () => {
-    onClose();
-    alert("added", brewery.name);
-  };
-
+export default function Modal({ onClose, brewery, onAddBrewery }) {
   const breweryAddress =
     brewery.address_1 +
     ", " +
@@ -21,14 +16,19 @@ export default function Modal({ onClose, brewery }) {
 
   const formattedAddress = `${brewery.address_1} ${brewery.city} ${brewery.state} ${brewery.postal_code}`;
 
+  const addBrewery = () => {
+    alert(brewery.name + " has been added to your brewery list");
+    onAddBrewery(brewery);
+    onClose();
+  };
+
   return (
     <div
-      className="modal"
-      key={brewery.id}
-      class=" flex items-center justify-center absolute z-10 left-0 top-0 right-0 bottom-0 width-100% height-100% bg-amber-100 "
+      id="modal "
+      class="flex items-center justify-center absolute z-10 left-0 top-0 right-0 bottom-0 w-full h-full bg-amber-100"
     >
       <div
-        className="modal-content"
+        id="modal-content"
         class="text-white bg-amber-900 rounded-md p-12 opacity-100"
       >
         <h2 class="text-2xl">{brewery.name}</h2>
@@ -52,12 +52,12 @@ export default function Modal({ onClose, brewery }) {
         <div class="flex justify-around">
           <button
             onClick={onClose}
-            class="bg-white text-black p-2 rounded-md font-bold hover:bg-amber-200 "
+            class="bg-white text-black p-2 rounded-md font-bold hover:bg-amber-200"
           >
             Close
           </button>
           <button
-            onClick={onAdd}
+            onClick={addBrewery}
             class="bg-white text-black p-2 rounded-md font-bold hover:bg-amber-200"
           >
             Add

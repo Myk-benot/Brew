@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
 
-export default function Tag({ brewery }) {
+export default function Tag({ brewery, onAddBrewery }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function openModal() {
@@ -12,12 +12,8 @@ export default function Tag({ brewery }) {
     setIsModalOpen(false);
   }
 
-  useEffect(() => {
-    console.log(isModalOpen);
-  }, [isModalOpen]);
-
   return (
-    <ul className="brew-list" class="">
+    <ul class="brew-list">
       <li class="text-lg">{brewery.name}</li>
       <button
         class="bg-amber-900 text-white p-1 rounded-md"
@@ -25,7 +21,13 @@ export default function Tag({ brewery }) {
       >
         More Info!
       </button>
-      {isModalOpen && <Modal onClose={closeModal} brewery={brewery} />}
+      {isModalOpen && (
+        <Modal
+          onClose={closeModal}
+          brewery={brewery}
+          onAddBrewery={onAddBrewery}
+        />
+      )}
     </ul>
   );
 }
